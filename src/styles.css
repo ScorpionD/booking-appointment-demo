@@ -255,6 +255,7 @@ nav .nav-admin {
   color: #729284;
 }
 .hero-note {
+  isolation: isolate;
   background: #eaf0f3;
   border: 1px solid #dfe7e9;
   border-radius: 16px;
@@ -263,6 +264,7 @@ nav .nav-admin {
   overflow: hidden;
 }
 .hero-note:after {
+  z-index: -1;
   content: "";
   position: absolute;
   width: 190px;

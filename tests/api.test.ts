@@ -337,6 +337,54 @@ describe("PostgreSQL booking API integration", () => {
       (await client.get("/api/appointments")).body.appointments[0].id,
     ).toBe(a.id);
   });
+  it("does not let a management link expand another workspace's admin access", async () => {
+    const a = await create();
+    const other = await session();
+    await send(
+      "post",
+      "/api/admin/login",
+      { acknowledge: true },
+      other.agent,
+      other.csrf,
+    );
+    for (const [method, path, body] of [
+      [
+        "put",
+        `/api/admin/appointments/${a.id}/status`,
+        { status: "confirmed", version: a.version },
+      ],
+      ["post", `/api/admin/appointments/${a.id}/reminder`, {}],
+    ] as const) {
+      const response = await send(
+        method,
+        path,
+        body,
+        other.agent,
+        other.csrf,
+      ).set("X-Booking-Token", a.managementKey);
+      expect(response.status).toBe(404);
+    }
+  });
+  it("defers excess Telegram sends without losing saved bookings or events", async () => {
+    const a = await create();
+    await db.query(
+      "INSERT INTO usage_limits VALUES('telegram:'||to_char(now(),'YYYY-MM-DD-HH24'),60,now()+interval '2 hours')",
+    );
+    expect(
+      (await automation("claim", { eventId: a.notifications[0].id })).body
+        .claimed,
+    ).toBe(false);
+    const n = (
+      await db.query(
+        "SELECT state,attempts,next_attempt_at FROM notifications WHERE id=$1",
+        [a.notifications[0].id],
+      )
+    ).rows[0];
+    expect(n.state).toBe("pending");
+    expect(n.attempts).toBe(0);
+    expect(new Date(n.next_attempt_at).getTime()).toBeGreaterThan(Date.now());
+    expect((await client.get(`/api/appointments/${a.id}`)).status).toBe(200);
+  });
   it("creates and updates services without changing booked snapshots", async () => {
     const a = await create();
     await admin();

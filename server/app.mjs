@@ -299,7 +299,8 @@ export function createApp(db, config = {}) {
     assert(
       a &&
         (a.workspace_id === req.workspace.id ||
-          safeEqual(hash(req.get("x-booking-token") || ""), a.manage_hash)),
+          (!req.path.startsWith("/api/admin/") &&
+            safeEqual(hash(req.get("x-booking-token") || ""), a.manage_hash))),
       404,
       "NOT_FOUND",
       "Booking not found or management key is invalid.",
