@@ -4,6 +4,12 @@ A working appointment system that takes a service business from **live availabil
 
 **[Live demo](https://booking-appointment-demo.pages.dev/)** · **[GitHub](https://github.com/ScorpionD/booking-appointment-demo)**
 
+![Northline Booking portfolio cover](artifacts/cover.png)
+
+**58 automated tests passed** · **Production build verified** · **Real booking and scheduled Telegram delivery verified**
+
+[Eight real application screenshots](artifacts/README.md) · [Production verification record](docs/verification.md)
+
 ## Business use case
 
 Consultants, repair teams, salons and service centres need a reliable way to accept appointments without trading messages about available times. Customers need the freedom to change their plans. Staff need one schedule and a dependable record of what happened.
@@ -71,7 +77,7 @@ See [PostgreSQL range constraints](https://www.postgresql.org/docs/current/range
 | `appointments`            | UTC time interval, status, customer details, service/staff snapshots, management-token hash and idempotency key |
 | `appointment_events`      | Booking, reschedule, cancellation, status and reminder activity                                                 |
 | `notifications`           | Durable outbox, event version, claim state and Telegram receipt                                                 |
-| `usage_limits`            | Bounded anonymous workspace creation                                                                            |
+| `usage_limits`            | Bounded anonymous workspace creation and global Telegram delivery allowance                                     |
 
 An appointment has a general revision for stale-write protection and a separate schedule revision for reminder validity. Confirming a visit does not invalidate its reminder. Rescheduling invalidates old pending reminders and schedules a new one. Booking snapshots preserve the agreed service details when future service configuration changes.
 
@@ -79,13 +85,14 @@ An appointment has a general revision for stale-write protection and a separate 
 
 The runnable generator is [n8n/workflow.mjs](n8n/workflow.mjs). Deployment supplies credential references privately.
 
-- A saved booking immediately attempts the authenticated n8n webhook. Checkout never depends on Telegram availability.
+- A saved booking immediately attempts the authenticated n8n webhook. Booking confirmation never depends on Telegram availability.
 - The n8n schedule trigger runs every minute, creates due reminder events and picks up pending outbox events. A missed webhook remains in the queue.
 - Each event must obtain an atomic database send claim before Telegram is called. Concurrent or repeated workflow executions cannot claim it twice.
 - n8n sends the booking number, customer name, service, specialist, London date/time and event/status. Email, phone and customer notes are not sent to Telegram.
 - Successful delivery stores the Telegram message reference. A timeout, uncertain result or abandoned claim is marked `review`; it is not blindly resent. Receipt writes can be retried safely.
 - The reminder target is 24 hours before the appointment. For a booking closer than 24 hours away, the target is five minutes after creation. The scheduler skips expired, cancelled, past or outdated reminders.
 - In Admin, open an upcoming appointment and select **Send test reminder**. One test reminder is permitted per schedule version and follows the same n8n/Telegram delivery path.
+- Public demo delivery is capped at 60 claimed Telegram sends per hour across workspaces. Excess events remain queued for a later attempt; saved appointments remain available.
 
 This is a real scheduled workflow, not a browser timer. Delivery runs on the server even after the page closes. Telegram acts as the demonstration delivery channel; a commercial implementation can substitute consented email/SMS/WhatsApp adapters. See [n8n Schedule Trigger documentation](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.scheduletrigger/).
 
@@ -108,6 +115,14 @@ The API suite requires **a separate PostgreSQL database named `booking_test`** a
 Unit tests check working hours, breaks, adjacent intervals, duration, lead time, summer/winter timezone conversion and status transitions. Frontend tests check service loading, unavailable slots, honest failures and backend history. Gateway/workflow tests verify protected internal routes, origin and size enforcement, header filtering and duplicate-delivery control.
 
 `npm run test:unit` runs without a database. GitHub Actions creates its own disposable PostgreSQL 17 instance and runs lint, the full test suite and a production build. The final live evidence is recorded in [verification notes](docs/verification.md).
+
+The production smoke runner deliberately requires an opt-in because it creates fictional bookings and sends real demo-manager Telegram notifications:
+
+```sh
+npm run smoke:production -- --confirm-test-bookings
+```
+
+It verifies the public gateway, concurrent conflict, idempotent replay, persisted history, rescheduling, status updates, cancellation, released slots and confirmed notification receipts. It leaves one upcoming test appointment for the minute scheduler; all demo records expire with their workspace. Evidence includes no cookies, management keys or operational secrets.
 
 ## Local setup
 

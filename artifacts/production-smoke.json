@@ -1,0 +1,59 @@
+{
+  "verifiedAt": "2026-09-14T07:19:54.052Z",
+  "origin": "https://booking-appointment-demo.pages.dev",
+  "checks": [
+    "public session and catalog",
+    "concurrent race: 201 + 409",
+    "same-key replay: one saved appointment",
+    "database-backed history",
+    "reserved slot excluded",
+    "atomic reschedule; old slot released",
+    "scoped admin status update",
+    "test reminder deduplicated",
+    "cancelled slot released",
+    "real Telegram receipts"
+  ],
+  "raceStatuses": [
+    201,
+    409
+  ],
+  "cancelledReference": "NB-3C78C042",
+  "scheduledReminder": {
+    "id": "5df01396-cf5e-4f98-a082-2cea5f0c9ce9",
+    "reference": "NB-5DF01396",
+    "startsAt": "2026-09-14T08:00:00.000Z",
+    "reminderAt": "2026-09-14T07:24:50.676Z"
+  },
+  "receipts": [
+    {
+      "reference": "NB-3C78C042",
+      "kind": "booking",
+      "state": "delivered",
+      "messageId": "41"
+    },
+    {
+      "reference": "NB-3C78C042",
+      "kind": "reschedule",
+      "state": "delivered",
+      "messageId": "42"
+    },
+    {
+      "reference": "NB-3C78C042",
+      "kind": "test-reminder",
+      "state": "delivered",
+      "messageId": "43"
+    },
+    {
+      "reference": "NB-3C78C042",
+      "kind": "cancellation",
+      "state": "delivered",
+      "messageId": "44"
+    },
+    {
+      "reference": "NB-5DF01396",
+      "kind": "booking",
+      "state": "delivered",
+      "messageId": "45"
+    }
+  ]
+}

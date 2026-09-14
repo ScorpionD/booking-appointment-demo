@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+<defs><pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#466071" stroke-opacity=".18"/></pattern></defs>
+<rect width="1600" height="1200" fill="#213b4d"/><rect width="1600" height="1200" fill="url(#grid)"/>
+<circle cx="1400" cy="80" r="420" fill="#294657"/><circle cx="1400" cy="80" r="335" fill="none" stroke="#466071"/>
+<rect x="80" y="72" width="68" height="68" rx="16" fill="#f4f5ef"/><text x="114" y="123" font-family="Georgia" font-size="52" text-anchor="middle" fill="#213b4d">N</text><circle cx="138" cy="81" r="5" fill="#a9c1b0"/>
+<text x="174" y="105" font-family="Arial,sans-serif" font-size="26" font-weight="700" letter-spacing="5" fill="#fff">NORTHLINE</text><text x="175" y="134" font-family="Arial,sans-serif" font-size="14" letter-spacing="8" fill="#bed0d6">BOOKING</text>
+<rect x="1260" y="82" width="255" height="42" rx="21" fill="#bcd0bd"/><circle cx="1287" cy="103" r="5" fill="#365c4d"/><text x="1303" y="111" font-family="Arial,sans-serif" font-size="19" fill="#213b4d">WORKING LIVE DEMO</text>
+<text x="80" y="288" font-family="Arial,sans-serif" font-size="20" letter-spacing="4" fill="#b5c9bd">FULL-STACK APPOINTMENT SYSTEM</text>
+<g font-family="Arial,sans-serif" font-size="82" font-weight="700" letter-spacing="-3" fill="#fff"><text x="76" y="396">Better bookings.</text><text x="76" y="493">Calmer days.</text></g>
+<text x="80" y="565" font-family="Arial,sans-serif" font-size="27" fill="#c7d5db">From real availability to a saved appointment</text><text x="80" y="606" font-family="Arial,sans-serif" font-size="27" fill="#c7d5db">and a reminder that reaches your team.</text>
+<g font-family="Arial,sans-serif" font-size="25" fill="#e8efef">
+<circle cx="95" cy="703" r="15" fill="#55776c"/><path d="m88 703 5 5 9-10" fill="none" stroke="#fff" stroke-width="3"/><text x="127" y="712">Conflict-safe, atomic booking</text>
+<circle cx="95" cy="762" r="15" fill="#55776c"/><path d="m88 762 5 5 9-10" fill="none" stroke="#fff" stroke-width="3"/><text x="127" y="771">Reschedule, cancel &amp; manage</text>
+<circle cx="95" cy="821" r="15" fill="#55776c"/><path d="m88 821 5 5 9-10" fill="none" stroke="#fff" stroke-width="3"/><text x="127" y="830">Automated Telegram reminders</text>
+</g>
+<rect x="936" y="258" width="576" height="646" rx="28" fill="#f8f8f3"/>
+<text x="976" y="322" font-family="Arial,sans-serif" font-size="18" letter-spacing="3" fill="#758b90">YOUR SCHEDULE, CONNECTED</text>
+<text x="976" y="375" font-family="Arial,sans-serif" font-size="32" font-weight="700" fill="#213b4d">Make time for what matters.</text>
+<g font-family="Arial,sans-serif" text-anchor="middle" font-size="17" fill="#748b92"><text x="1006" y="435">MON</text><text x="1093" y="435">TUE</text><text x="1180" y="435">WED</text><text x="1267" y="435">THU</text><text x="1354" y="435">FRI</text><text x="1441" y="435">SAT</text></g>
+<rect x="1058" y="452" width="70" height="76" rx="16" fill="#213b4d"/>
+<g font-family="Arial,sans-serif" text-anchor="middle" font-size="29" fill="#213b4d"><text x="1006" y="500">14</text><text x="1093" y="500" fill="#fff">15</text><text x="1180" y="500">16</text><text x="1267" y="500">17</text><text x="1354" y="500">18</text><text x="1441" y="500">19</text></g>
+<rect x="974" y="564" width="500" height="137" rx="16" fill="#e8eef2"/><rect x="974" y="564" width="5" height="137" rx="2" fill="#819fac"/>
+<text x="1000" y="601" font-family="Arial,sans-serif" font-size="18" fill="#718892">11:00 — 11:30 · LONDON</text><text x="1000" y="641" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#213b4d">Discovery consultation</text><text x="1000" y="676" font-family="Arial,sans-serif" font-size="20" fill="#718892">Alex Morgan · Demo specialist</text>
+<rect x="974" y="724" width="500" height="66" rx="13" fill="#e7efe7"/><circle cx="1008" cy="757" r="12" fill="none" stroke="#638b74" stroke-width="2"/><path d="m1002 757 4 4 8-8" fill="none" stroke="#638b74" stroke-width="2"/><text x="1032" y="765" font-family="Arial,sans-serif" font-size="23" fill="#3e6453">Saved. Reserved. Ready.</text>
+<text x="979" y="847" font-family="Arial,sans-serif" font-size="19" fill="#718892">Booking → PostgreSQL → n8n → Telegram</text>
+<line x1="80" x2="1520" y1="990" y2="990" stroke="#527080" stroke-opacity=".7"/>
+<text x="80" y="1055" font-family="Arial,sans-serif" font-size="26" fill="#fff">React / TypeScript</text><text x="465" y="1055" font-family="Arial,sans-serif" font-size="26" fill="#fff">Node.js / PostgreSQL</text><text x="920" y="1055" font-family="Arial,sans-serif" font-size="26" fill="#fff">n8n / Cloudflare / Docker</text>
+<text x="80" y="1121" font-family="Arial,sans-serif" font-size="20" fill="#a7bec8">Live booking · Admin workspace · Server-side scheduling · Automated tests</text><text x="1520" y="1121" text-anchor="end" font-family="Arial,sans-serif" font-size="18" fill="#a7bec8">PORTFOLIO 05</text>
+</svg>
