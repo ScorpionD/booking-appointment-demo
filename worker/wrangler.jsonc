@@ -1,0 +1,29 @@
+{
+  "name": "northline-booking-gateway",
+  "main": "index.mjs",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": {
+    "enabled": false,
+  },
+  "vars": {
+    "PUBLIC_ORIGIN": "https://booking-appointment-demo.pages.dev",
+  },
+  "ratelimits": [
+    {
+      "name": "EDGE_RATE",
+      "namespace_id": "810251",
+      "simple": {
+        "limit": 150,
+        "period": 60,
+      },
+    },
+  ],
+  "vpc_services": [
+    {
+      "binding": "PRIVATE_API",
+      "service_id": "01a09eb6-0acd-7343-8de2-500f38c998fc",
+    },
+  ],
+}

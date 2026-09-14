@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" --set=app_password="$APP_DB_PASSWORD" <<'EOSQL'
+CREATE EXTENSION IF NOT EXISTS btree_gist;
+CREATE ROLE booking_app LOGIN PASSWORD :'app_password' NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION CONNECTION LIMIT 20;
+GRANT CONNECT ON DATABASE booking TO booking_app;
+GRANT USAGE,CREATE ON SCHEMA public TO booking_app;
+CREATE DATABASE booking_test OWNER booking_app;
+EOSQL

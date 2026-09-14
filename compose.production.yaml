@@ -1,0 +1,24 @@
+services:
+  db:
+    ports: !reset []
+  api:
+    ports: !reset []
+  tunnel:
+    image: cloudflare/cloudflared:2026.9.0
+    command:
+      [tunnel, --no-autoupdate, run, --token-file, /run/secrets/tunnel_token]
+    secrets: [tunnel_token]
+    networks: [edge]
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 160m
+    cpus: 0.25
+    pids_limit: 80
+    logging: { driver: json-file, options: { max-size: 5m, max-file: "2" } }
+secrets:
+  tunnel_token:
+    file: ./secrets/tunnel-token.txt
+networks:
+  database: { internal: true }
